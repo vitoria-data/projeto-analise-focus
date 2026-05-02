@@ -5,15 +5,19 @@ on:
     - cron: '0 12 * * 1' # Executa todas as segundas-feiras às 12:00 UTC (9h Brasília)
   workflow_dispatch: # Permite executar manualmente no botão
 
+# AQUI ESTÁ A SOLUÇÃO MÁGICA: Dá permissão ao robô para guardar as alterações
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4 # Atualizado para v4 (remove o aviso amarelo)
 
       - name: Configurar Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5 # Atualizado para v5 (remove o aviso amarelo)
         with:
           python-version: '3.9'
 
