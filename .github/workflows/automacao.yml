@@ -1,0 +1,32 @@
+name: Atualização Automática Focus
+
+on:
+  schedule:
+    - cron: '0 12 * * 1' # Executa todas as segundas-feiras às 12:00 UTC (9h Brasília)
+  workflow_dispatch: # Permite executar manualmente no botão
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Instalar dependências
+        run: pip install pandas requests
+
+      - name: Executar Script de Inteligência
+        run: python analise_focus.py
+
+      - name: Guardar as atualizações
+        run: |
+          git config --global user.name 'Vitória Amaral Bot'
+          git config --global user.email 'vitoriaamaral.br@gmail.com'
+          git add .
+          git commit -m "Automação: Dados Focus Atualizados" || echo "Sem alterações"
+          git push
