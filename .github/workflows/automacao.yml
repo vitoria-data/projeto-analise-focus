@@ -2,10 +2,9 @@ name: Atualização Automática Focus
 
 on:
   schedule:
-    - cron: '0 12 * * 1' # Executa todas as segundas-feiras às 12:00 UTC (9h Brasília)
-  workflow_dispatch: # Permite executar manualmente no botão
-
-# AQUI ESTÁ A SOLUÇÃO MÁGICA: Dá permissão ao robô para guardar as alterações
+    - cron: '0 12 * * 1'
+  workflow_dispatch: 
+  
 permissions:
   contents: write
 
@@ -14,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v4 # Atualizado para v4 (remove o aviso amarelo)
+        uses: actions/checkout@v4
 
       - name: Configurar Python
-        uses: actions/setup-python@v5 # Atualizado para v5 (remove o aviso amarelo)
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
